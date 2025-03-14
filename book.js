@@ -1,4 +1,3 @@
-const myLibrary = [];
 
 class Book {
   constructor(title, author, pages, read) {
@@ -43,36 +42,25 @@ class Library {
       <p><strong>Author:</strong> ${book.author}</p>
       <p><strong>Pages:</strong> ${book.pages}</p>
       <p><strong>Read:</strong> ${book.read ? "Yes" : "No"}</p>
-      <button onclick="removeBook(${index})">Remove</button>
+      <button onclick="myLibrary.removeBook(${index})">Remove</button>
         `;
       libraryEl.appendChild(bookDiv);
 
     });
+
+  }
+  initEventListeners() {
+    document.querySelector('#new-book-btn').addEventListener('click', () => {
+      const bookForm = document.querySelector('#book-form');
+      bookForm.style.display = "block";
+    });
+
+    document.querySelector('#add-book-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      this.addBook();
+    })
   }
 }
-function display() {
-  let libraryEl = document.querySelector(".library");
-  libraryEl.innerHTML = "";
 
-  myLibrary.forEach((book, index) => {
-    let bookDiv = document.createElement("div");
-    bookDiv.classList.add("book");
-
-  })
-}
-function removeBook(index) {
-  myLibrary.splice(index, 1);
-  display();
-}
-
-let newBookbtn = document.querySelector('#new-book-btn');
-newBookbtn.addEventListener('click', function() {
-  let bookForm = document.querySelector('#book-form');
-  bookForm.style.display = "block"
-});
-
-document.querySelector('#add-book-btn').addEventListener("click", function(e) {
-  e.preventDefault();
-  addBookToLibrary();
-})
+const myLibrary = new Library();
 
